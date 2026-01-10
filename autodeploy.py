@@ -3,15 +3,10 @@ import time
 import subprocess
 import sys
 
-# Directory to watch (current directory)
 WATCH_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_SCRIPT = os.path.join(WATCH_DIR, "upload.sh")
 
 def get_mtime_recursive(directory):
-    """
-    Recursively get modification times of all files in the directory.
-    Excludes .git directory.
-    """
     mtimes = {}
     for root, dirs, files in os.walk(directory):
         if ".git" in root:
@@ -28,20 +23,17 @@ def main():
     print(f"👀 Запущен авто-загрузчик. Слежу за папкой: {WATCH_DIR}")
     print("✨ При изменении любого файла будет выполнен git push.")
     
-    # Store initial state
     last_mtimes = get_mtime_recursive(WATCH_DIR)
 
     while True:
         try:
-            time.sleep(2) # Check every 2 seconds
+            time.sleep(2)
             current_mtimes = get_mtime_recursive(WATCH_DIR)
             
-            # Compare current state with last state
             if current_mtimes != last_mtimes:
                 print("\n📝 Обнаружено изменение файла!")
                 print("⏳ Запускаю загрузку на GitHub...")
                 
-                # Execute the upload script
                 result = subprocess.run(["bash", UPLOAD_SCRIPT], cwd=WATCH_DIR)
                 
                 if result.returncode == 0:
@@ -49,9 +41,6 @@ def main():
                 else:
                     print("❌ Ошибка при загрузке.")
                 
-                # Update the last known state to the current state
-                # We do this AFTER the script runs so we don't trigger on git changes immediately 
-                # (though .git is excluded, git might touch other things or script might update timestamps)
                 last_mtimes = get_mtime_recursive(WATCH_DIR)
                 print("👀 Продолжаю наблюдение...")
 

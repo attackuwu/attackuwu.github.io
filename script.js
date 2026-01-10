@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 0. Preloader ---
     const preloader = document.getElementById('preloader');
     if (preloader) {
         setTimeout(() => {
@@ -7,10 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 preloader.style.display = 'none';
             }, 500);
-        }, 1000); // Имитация загрузки 1 сек
+        }, 1000);
     }
 
-    // --- 1. Scroll Animations (Intersection Observer) ---
     const observerOptions = {
         threshold: 0.1
     };
@@ -27,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     hiddenElements.forEach((el) => observer.observe(el));
 
 
-    // --- 2. Typing Effect ---
     const textElement = document.getElementById('typing-text');
     if (textElement) {
         const texts = ["Discord Bot Developer", "Python Scripter", "Open Source Enthusiast", "Automation Expert"];
@@ -54,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }());
     }
 
-    // --- 3. 3D Tilt Effect ---
     const cards = document.querySelectorAll('.project-card');
 
     cards.forEach(card => {
@@ -77,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 4. Smooth Scroll ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -87,24 +82,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 6. REAL Visit Counter (API) ---
-    // Мы используем публичный API CountAPI для хранения числа просмотров.
     const counterElement = document.getElementById('visit-count');
     if (counterElement) {
 
-        // Пытаемся получить данные
-        // Формат: https://api.countapi.xyz/hit/ВАШ_ДОМЕН/visits
         fetch('https://api.countapi.xyz/hit/attackuwu.github.io/visits')
             .then(response => response.json())
             .then(data => {
                 const visits = data.value;
-                // Анимация накрутки цифр
                 let start = 0;
                 const duration = 1500;
                 const step = timestamp => {
                     if (!start) start = timestamp;
                     const progress = Math.min((timestamp - start) / duration, 1);
-                    // Начинаем с 0 и бежим до реального значения
                     counterElement.innerText = Math.floor(progress * (visits - 0) + 0);
                     if (progress < 1) window.requestAnimationFrame(step);
                     else counterElement.innerText = visits;
@@ -118,8 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- 5. Improved Particle Background ---
-// --- 5. Improved Particle Background ---
 const canvas = document.getElementById('bg-canvas');
 if (canvas) {
     const ctx = canvas.getContext('2d');
@@ -169,7 +156,7 @@ if (canvas) {
             let size = (Math.random() * 2) + 1;
             let x = Math.random() * (innerWidth - size * 2);
             let y = Math.random() * (innerHeight - size * 2);
-            let directionX = (Math.random() * 2) - 1; // Faster particles
+            let directionX = (Math.random() * 2) - 1;
             let directionY = (Math.random() * 2) - 1;
             let color = '#8b5cf6';
 
@@ -193,7 +180,7 @@ if (canvas) {
                 let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
                     ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
                 if (distance < (canvas.width / 9) * (canvas.height / 9)) {
-                    ctx.strokeStyle = 'rgba(139, 92, 246, 0.15)'; // Brighter lines
+                    ctx.strokeStyle = 'rgba(139, 92, 246, 0.15)';
                     ctx.lineWidth = 1;
                     ctx.beginPath();
                     ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
