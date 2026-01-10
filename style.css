@@ -73,9 +73,16 @@ body {
 .hero {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    /* Изменено для центровки */
+    justify-content: center;
+    /* Центр по вертикали */
     align-items: center;
-    padding: 0 10%;
+    /* Центр по горизонтали */
+    padding: 0 5%;
     position: relative;
+    text-align: center;
+    /* Весь текст по центру */
 }
 
 .badge {
@@ -93,6 +100,8 @@ h1 {
     font-size: 4rem;
     line-height: 1.1;
     margin-bottom: 1rem;
+    max-width: 800px;
+    /* Чтобы заголовок не был слишком широким */
 }
 
 .gradient-text {
@@ -107,6 +116,10 @@ h1 {
     color: var(--text-muted);
     margin-bottom: 2rem;
     height: 30px;
+    display: flex;
+    /* Центруем курсор */
+    justify-content: center;
+    gap: 5px;
 }
 
 .cursor {
@@ -131,12 +144,17 @@ h1 {
     font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 3rem;
+    margin-left: auto;
+    /* Для центровки блока */
+    margin-right: auto;
 }
 
 .cta-buttons {
     display: flex;
     gap: 1.5rem;
     margin-bottom: 4rem;
+    justify-content: center;
+    /* Кнопки по центру */
 }
 
 .btn {
