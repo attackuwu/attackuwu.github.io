@@ -322,6 +322,12 @@ h1 {
     color: var(--primary);
 }
 
+.card-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+}
+
 /* Footer */
 footer {
     padding: 5rem 10%;
