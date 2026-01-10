@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои Проекты | AttackUwU</title>
+
+    <!-- Пути к стилям нужно поменять, так как мы теперь в папке! (../style.css) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Поднимаемся на уровень вверх (..) чтобы достать стиль -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="logo">&lt;AttackUwU /&gt;</div>
+        <div class="nav-links">
+            <a href="../index.html">Главная</a> <!-- Ссылка назад -->
+            <a href="#" class="active">Проекты</a>
+            <a href="../index.html#contact">Контакты</a>
+        </div>
+    </nav>
+
+    <section class="projects-section" style="padding-top: 150px;">
+        <h2 class="section-title">Все <span class="gradient-text">Проекты</span></h2>
+
+        <div class="projects-grid">
+            <!-- Здесь может быть расширенный список проектов -->
+            <div class="project-card">
+                <div class="card-icon"><i class="fa-brands fa-discord"></i></div>
+                <h3>Super Bot V2</h3>
+                <p>Новая версия бота с поддержкой музыки.</p>
+                <div class="tags"><span>Beta</span></div>
+                <a href="#" class="card-link">Скачать <i class="fa-solid fa-download"></i></a>
+            </div>
+
+            <div class="project-card">
+                <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
+                <h3>Auto-Moderator</h3>
+                <p>Нейросеть для модерации чата.</p>
+                <div class="tags"><span>AI</span></div>
+                <a href="#" class="card-link">Github <i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>
