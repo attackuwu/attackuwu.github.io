@@ -21,9 +21,14 @@
 </head>
 
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
     <canvas id="bg-canvas"></canvas>
 
-    <nav class="navbar">
+    <nav class="navbar hidden-element">
         <div class="logo">&lt;AttackUwU /&gt;</div>
         <div class="nav-links">
             <a href="#home">Главная</a>
@@ -34,22 +39,22 @@
 
     <section id="home" class="hero">
         <div class="hero-content">
-            <div class="badge">AVAILABLE FOR HIRE</div>
-            <h1>Привет, я <span class="gradient-text">AttackUwU</span></h1>
-            <div class="terminal-text">
+            <div class="badge hidden-element">AVAILABLE FOR HIRE</div>
+            <h1 class="hidden-element">Привет, я <span class="gradient-text">AttackUwU</span></h1>
+            <div class="terminal-text hidden-element">
                 I build <span id="typing-text"></span><span class="cursor">|</span>
             </div>
-            <p class="subtitle">
+            <p class="subtitle hidden-element">
                 Создаю продвинутых ботов для Discord, пишу сложные скрипты на Python
                 и разрабатываю Open Source инструменты для сообщества.
             </p>
-            <div class="cta-buttons">
+            <div class="cta-buttons hidden-element">
                 <a href="#projects" class="btn primary"><i class="fa-solid fa-code"></i> Смотреть код</a>
                 <a href="https://github.com/attackuwu" target="_blank" class="btn secondary"><i
                         class="fa-brands fa-github"></i> GitHub</a>
             </div>
 
-            <div class="stats-container">
+            <div class="stats-container hidden-element">
                 <div class="stat-box">
                     <h3>10+</h3>
                     <p>Проектов</p>
@@ -67,11 +72,11 @@
     </section>
 
     <section id="projects" class="projects-section">
-        <h2 class="section-title">Мои <span class="gradient-text">Разработки</span></h2>
+        <h2 class="section-title hidden-element">Мои <span class="gradient-text">Разработки</span></h2>
 
         <div class="projects-grid">
             <!-- Project 1 -->
-            <div class="project-card">
+            <div class="project-card hidden-element">
                 <div class="card-icon"><i class="fa-brands fa-discord"></i></div>
                 <h3>Discord Ping Bot</h3>
                 <p>Продвинутый бот с минимальной задержкой. Умеет проверять статус серверов и имеет встроенную систему
@@ -84,7 +89,7 @@
             </div>
 
             <!-- Project 2 -->
-            <div class="project-card">
+            <div class="project-card hidden-element" style="transition-delay: 100ms;">
                 <div class="card-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
                 <h3>Pastebin Uploader</h3>
                 <p>CLI утилита для мгновенной загрузки скриптов на Pastebin прямо из терминала. Поддерживает Syntax
@@ -97,7 +102,7 @@
             </div>
 
             <!-- Project 3 -->
-            <div class="project-card">
+            <div class="project-card hidden-element" style="transition-delay: 200ms;">
                 <div class="card-icon"><i class="fa-solid fa-gamepad"></i></div>
                 <h3>Game Scripts</h3>
                 <p>Коллекция полезных скриптов и макросов для различных игровых движков. Оптимизировано для скорости.
@@ -112,7 +117,7 @@
     </section>
 
     <footer id="contact">
-        <div class="footer-content">
+        <div class="footer-content hidden-element">
             <h2>Давайте работать вместе!</h2>
             <div class="social-links">
                 <a href="https://github.com/attackuwu" class="social-btn"><i class="fa-brands fa-github"></i></a>

@@ -1,5 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. Эффект печатающегося текста (Typewriter) ---
+    // --- 0. Preloader ---
+    const preloader = document.getElementById('preloader');
+    setTimeout(() => {
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+            preloader.style.display = 'none';
+        }, 500);
+    }, 1000); // Имитация загрузки 1 сек
+
+    // --- 1. Scroll Animations (Intersection Observer) ---
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show-element');
+            }
+        });
+    }, observerOptions);
+
+    const hiddenElements = document.querySelectorAll('.hidden-element');
+    hiddenElements.forEach((el) => observer.observe(el));
+
+
+    // --- 2. Typing Effect ---
     const textElement = document.getElementById('typing-text');
     const texts = ["Discord Bot Developer", "Python Scripter", "Open Source Enthusiast", "Automation Expert"];
     let count = 0;
@@ -19,12 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 index = 0;
                 count++;
-            }, 2000); // Пауза перед стиранием
+            }, 2000);
         }
         setTimeout(type, 100);
     }());
 
-    // --- 2. 3D Эффект для карточек (Tilt Effect) ---
+    // --- 3. 3D Tilt Effect ---
     const cards = document.querySelectorAll('.project-card');
 
     cards.forEach(card => {
@@ -36,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+            const rotateX = ((y - centerY) / centerY) * -10;
             const rotateY = ((x - centerX) / centerX) * 10;
 
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
@@ -47,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 3. Плавный скролл ---
+    // --- 4. Smooth Scroll ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -58,10 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// --- 4. Фон с частицами (Canvas) ---
+// --- 5. Improved Particle Background ---
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
-
 let particlesArray;
 
 canvas.width = window.innerWidth;
@@ -106,11 +131,11 @@ function init() {
     let numberOfParticles = (canvas.height * canvas.width) / 9000;
     for (let i = 0; i < numberOfParticles; i++) {
         let size = (Math.random() * 2) + 1;
-        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-        let directionX = (Math.random() * 1) - 0.5;
-        let directionY = (Math.random() * 1) - 0.5;
-        let color = '#8b5cf6'; // Primary color particle
+        let x = Math.random() * (innerWidth - size * 2);
+        let y = Math.random() * (innerHeight - size * 2);
+        let directionX = (Math.random() * 2) - 1; // Faster particles
+        let directionY = (Math.random() * 2) - 1;
+        let color = '#8b5cf6';
 
         particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
     }
@@ -131,8 +156,8 @@ function connect() {
         for (let b = a; b < particlesArray.length; b++) {
             let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
                 ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-            if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                ctx.strokeStyle = 'rgba(139, 92, 246, 0.1)';
+            if (distance < (canvas.width / 9) * (canvas.height / 9)) {
+                ctx.strokeStyle = 'rgba(139, 92, 246, 0.15)'; // Brighter lines
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
