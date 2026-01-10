@@ -76,28 +76,34 @@
         <h2 class="section-title hidden-element">Мои <span class="gradient-text">Разработки</span></h2>
 
         <div class="projects-grid">
-            <!-- Сюда добавляйте свои проекты -->
-            <div class="project-card hidden-element">
-                <div class="card-icon"><i class="fa-brands fa-discord"></i></div>
-                <h3>Discord Ping Bot</h3>
-                <p>Мой бот для Discord с открытым исходным кодом. Быстрый отклик и удобные команды.</p>
+            <!-- Карточка 1: Ссылка на страницу всех проектов -->
+            <!-- Добавил onclick для кликабельности всей карточки -->
+            <div class="project-card hidden-element" onclick="window.location.href='projects/index.html'"
+                style="cursor: pointer;">
+                <div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <h3>Все Проекты</h3>
+                <p>Перейти в полный каталог моих скриптов и программ.</p>
                 <div class="tags">
-                    <span>Python</span>
-                    <span>Discord.py</span>
+                    <span>Catalog</span>
+                    <span>Web</span>
                 </div>
-                <a href="https://github.com/attackuwu/discord-ping-bot" target="_blank" class="card-link">GitHub <i
-                        class="fa-brands fa-github"></i></a>
+                <!-- Обычная ссылка внутри тоже осталась -->
+                <a href="projects/index.html" class="card-link">Открыть список <i
+                        class="fa-solid fa-arrow-right"></i></a>
             </div>
 
-            <!-- Пример второй карточки (пока скрытой или пустой, если нужно) -->
-            <div class="project-card hidden-element" style="transition-delay: 100ms;">
-                <div class="card-icon"><i class="fa-solid fa-file-code"></i></div>
-                <h3>Ваш будущий проект</h3>
-                <p>Здесь будет описание следующей крутой программы.</p>
+            <!-- Карточка 2: Ссылка на бота (GitHub) -->
+            <div class="project-card hidden-element" style="transition-delay: 100ms; cursor: pointer;"
+                onclick="window.open('https://github.com/attackuwu/discord-ping-bot', '_blank')">
+                <div class="card-icon"><i class="fa-brands fa-discord"></i></div>
+                <h3>Discord Ping Bot</h3>
+                <p>Исходный код моего бота для Discord. Бери и пользуйся!</p>
                 <div class="tags">
-                    <span>Soon</span>
+                    <span>Python</span>
+                    <span>Source</span>
                 </div>
-                <a href="#" class="card-link">Подробнее <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="https://github.com/attackuwu/discord-ping-bot" target="_blank" class="card-link">GitHub Repo <i
+                        class="fa-brands fa-github"></i></a>
             </div>
         </div>
     </section>
