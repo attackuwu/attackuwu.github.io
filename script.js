@@ -29,30 +29,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 2. Typing Effect ---
     const textElement = document.getElementById('typing-text');
-        if (textElement) {
-    const texts = ["Discord Bot Developer", "Python Scripter", "Open Source Enthusiast", "Automation Expert"];
-    let count = 0;
-    let index = 0;
-    let currentText = "";
-    let letter = "";
+    if (textElement) {
+        const texts = ["Discord Bot Developer", "Python Scripter", "Open Source Enthusiast", "Automation Expert"];
+        let count = 0;
+        let index = 0;
+        let currentText = "";
+        let letter = "";
 
-    (function type() {
-        if (count === texts.length) {
-            count = 0;
-        }
-        currentText = texts[count];
-        letter = currentText.slice(0, ++index);
+        (function type() {
+            if (count === texts.length) {
+                count = 0;
+            }
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
 
-        textElement.textContent = letter;
-        if (letter.length === currentText.length) {
-            setTimeout(() => {
-                index = 0;
-                count++;
-            }, 2000);
-        }
-        setTimeout(type, 100);
-    }());
-        }
+            textElement.textContent = letter;
+            if (letter.length === currentText.length) {
+                setTimeout(() => {
+                    index = 0;
+                    count++;
+                }, 2000);
+            }
+            setTimeout(type, 100);
+        }());
+    }
 
     // --- 3. 3D Tilt Effect ---
     const cards = document.querySelectorAll('.project-card');
@@ -90,117 +90,120 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 6. REAL Visit Counter (API) ---
     // Мы используем публичный API CountAPI для хранения числа просмотров.
     const counterElement = document.getElementById('visit-count');
-        if (counterElement) {
+    if (counterElement) {
 
-    // Пытаемся получить данные
-    // Формат: https://api.countapi.xyz/hit/ВАШ_ДОМЕН/visits
-    fetch('https://api.countapi.xyz/hit/attackuwu.github.io/visits')
-        .then(response => response.json())
-        .then(data => {
-            const visits = data.value;
-            // Анимация накрутки цифр
-            let start = 0;
-            const duration = 1500;
-            const step = timestamp => {
-                if (!start) start = timestamp;
-                const progress = Math.min((timestamp - start) / duration, 1);
-                // Начинаем с 0 и бежим до реального значения
-                counterElement.innerText = Math.floor(progress * (visits - 0) + 0);
-                if (progress < 1) window.requestAnimationFrame(step);
-                else counterElement.innerText = visits;
-            };
-            window.requestAnimationFrame(step);
-        })
-        .catch(err => {
-            console.error("Ошибка счетчика:", err);
-            counterElement.innerText = "Error";
-        });
-        }
+        // Пытаемся получить данные
+        // Формат: https://api.countapi.xyz/hit/ВАШ_ДОМЕН/visits
+        fetch('https://api.countapi.xyz/hit/attackuwu.github.io/visits')
+            .then(response => response.json())
+            .then(data => {
+                const visits = data.value;
+                // Анимация накрутки цифр
+                let start = 0;
+                const duration = 1500;
+                const step = timestamp => {
+                    if (!start) start = timestamp;
+                    const progress = Math.min((timestamp - start) / duration, 1);
+                    // Начинаем с 0 и бежим до реального значения
+                    counterElement.innerText = Math.floor(progress * (visits - 0) + 0);
+                    if (progress < 1) window.requestAnimationFrame(step);
+                    else counterElement.innerText = visits;
+                };
+                window.requestAnimationFrame(step);
+            })
+            .catch(err => {
+                console.error("Ошибка счетчика:", err);
+                counterElement.innerText = "Error";
+            });
+    }
 });
 
 // --- 5. Improved Particle Background ---
+// --- 5. Improved Particle Background ---
 const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
-let particlesArray;
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let particlesArray;
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    init();
-});
 
-class Particle {
-    constructor(x, y, directionX, directionY, size, color) {
-        this.x = x;
-        this.y = y;
-        this.directionX = directionX;
-        this.directionY = directionY;
-        this.size = size;
-        this.color = color;
-    }
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-    }
-    update() {
-        if (this.x > canvas.width || this.x < 0) {
-            this.directionX = -this.directionX;
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        init();
+    });
+
+    class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+            this.x = x;
+            this.y = y;
+            this.directionX = directionX;
+            this.directionY = directionY;
+            this.size = size;
+            this.color = color;
         }
-        if (this.y > canvas.height || this.y < 0) {
-            this.directionY = -this.directionY;
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+            ctx.fillStyle = this.color;
+            ctx.fill();
         }
-        this.x += this.directionX;
-        this.y += this.directionY;
-        this.draw();
+        update() {
+            if (this.x > canvas.width || this.x < 0) {
+                this.directionX = -this.directionX;
+            }
+            if (this.y > canvas.height || this.y < 0) {
+                this.directionY = -this.directionY;
+            }
+            this.x += this.directionX;
+            this.y += this.directionY;
+            this.draw();
+        }
     }
-}
 
-function init() {
-    particlesArray = [];
-    let numberOfParticles = (canvas.height * canvas.width) / 9000;
-    for (let i = 0; i < numberOfParticles; i++) {
-        let size = (Math.random() * 2) + 1;
-        let x = Math.random() * (innerWidth - size * 2);
-        let y = Math.random() * (innerHeight - size * 2);
-        let directionX = (Math.random() * 2) - 1; // Faster particles
-        let directionY = (Math.random() * 2) - 1;
-        let color = '#8b5cf6';
+    function init() {
+        particlesArray = [];
+        let numberOfParticles = (canvas.height * canvas.width) / 9000;
+        for (let i = 0; i < numberOfParticles; i++) {
+            let size = (Math.random() * 2) + 1;
+            let x = Math.random() * (innerWidth - size * 2);
+            let y = Math.random() * (innerHeight - size * 2);
+            let directionX = (Math.random() * 2) - 1; // Faster particles
+            let directionY = (Math.random() * 2) - 1;
+            let color = '#8b5cf6';
 
-        particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+        }
     }
-}
 
-function animate() {
-    requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, innerWidth, innerHeight);
 
-    for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+        }
+        connect();
     }
-    connect();
-}
 
-function connect() {
-    for (let a = 0; a < particlesArray.length; a++) {
-        for (let b = a + 1; b < particlesArray.length; b++) {
-            let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
-                ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-            if (distance < (canvas.width / 9) * (canvas.height / 9)) {
-                ctx.strokeStyle = 'rgba(139, 92, 246, 0.15)'; // Brighter lines
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                ctx.stroke();
+    function connect() {
+        for (let a = 0; a < particlesArray.length; a++) {
+            for (let b = a + 1; b < particlesArray.length; b++) {
+                let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
+                    ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                if (distance < (canvas.width / 9) * (canvas.height / 9)) {
+                    ctx.strokeStyle = 'rgba(139, 92, 246, 0.15)'; // Brighter lines
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                    ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                    ctx.stroke();
+                }
             }
         }
     }
-}
 
-init();
-animate();
+    init();
+    animate();
+}
