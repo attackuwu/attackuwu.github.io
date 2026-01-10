@@ -82,6 +82,34 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // --- 6. REAL Visit Counter (API) ---
+    // Мы используем публичный API CountAPI для хранения числа просмотров.
+    const counterElement = document.getElementById('visit-count');
+
+    // Пытаемся получить данные
+    // Формат: https://api.countapi.xyz/hit/ВАШ_ДОМЕН/visits
+    fetch('https://api.countapi.xyz/hit/attackuwu.github.io/visits')
+        .then(response => response.json())
+        .then(data => {
+            const visits = data.value;
+            // Анимация накрутки цифр
+            let start = 0;
+            const duration = 1500;
+            const step = timestamp => {
+                if (!start) start = timestamp;
+                const progress = Math.min((timestamp - start) / duration, 1);
+                // Начинаем с 0 и бежим до реального значения
+                counterElement.innerText = Math.floor(progress * (visits - 0) + 0);
+                if (progress < 1) window.requestAnimationFrame(step);
+                else counterElement.innerText = visits;
+            };
+            window.requestAnimationFrame(step);
+        })
+        .catch(err => {
+            console.error("Ошибка счетчика:", err);
+            counterElement.innerText = "Error";
+        });
 });
 
 // --- 5. Improved Particle Background ---
