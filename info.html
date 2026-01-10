@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация | AttackUwU</title>
+
+    <!-- Те же шрифты и стили -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Фон (Canvas) -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="logo">&lt;AttackUwU /&gt;</div>
+        <div class="nav-links">
+            <!-- Обратите внимание: ссылка на Главную ведет на index.html -->
+            <a href="index.html">Главная</a>
+            <a href="info.html" class="active">Инфо</a>
+            <a href="index.html#contact">Контакты</a>
+        </div>
+    </nav>
+
+    <!-- Контент новой страницы -->
+    <section class="hero" style="min-height: 80vh;">
+        <div class="hero-content">
+            <h1>Обо <span class="gradient-text">Мне</span></h1>
+            <p class="subtitle">
+                Здесь может быть ваша биография, история создания проектов или блог.
+                Второй файл работает так же, как и первый!
+            </p>
+
+            <div
+                style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 20px; text-align: left; max-width: 600px; margin: 0 auto; border: 1px solid rgba(255,255,255,0.1);">
+                <h3><i class="fa-solid fa-terminal"></i> Мои навыки</h3>
+                <ul style="margin-top: 1rem; padding-left: 1.5rem; color: #94a3b8; line-height: 1.8;">
+                    <li>Разработка Discord ботов (Python/JS)</li>
+                    <li>Автоматизация задач</li>
+                    <li>Работа с API (Pastebin, GitHub, etc.)</li>
+                    <li>Веб-дизайн (HTML/CSS)</li>
+                </ul>
+            </div>
+
+            <div class="cta-buttons" style="margin-top: 3rem;">
+                <a href="index.html" class="btn secondary">Вернуться назад</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подключаем тот же скрипт для фона -->
+    <script src="script.js"></script>
+</body>
+
+</html>
