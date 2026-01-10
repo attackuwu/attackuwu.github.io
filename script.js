@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- 0. Preloader ---
     const preloader = document.getElementById('preloader');
-<<<<<<< HEAD
     if (preloader) {
         setTimeout(() => {
             preloader.style.opacity = '0';
@@ -10,14 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 500);
         }, 1000); // Имитация загрузки 1 сек
     }
-=======
-    setTimeout(() => {
-        preloader.style.opacity = '0';
-        setTimeout(() => {
-            preloader.style.display = 'none';
-        }, 500);
-    }, 1000); // Имитация загрузки 1 сек
->>>>>>> 00b434b9d1778328c884d453175c76accc24c085
 
     // --- 1. Scroll Animations (Intersection Observer) ---
     const observerOptions = {
@@ -38,10 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 2. Typing Effect ---
     const textElement = document.getElementById('typing-text');
-<<<<<<< HEAD
         if (textElement) {
-=======
->>>>>>> 00b434b9d1778328c884d453175c76accc24c085
     const texts = ["Discord Bot Developer", "Python Scripter", "Open Source Enthusiast", "Automation Expert"];
     let count = 0;
     let index = 0;
@@ -64,10 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         setTimeout(type, 100);
     }());
-<<<<<<< HEAD
         }
-=======
->>>>>>> 00b434b9d1778328c884d453175c76accc24c085
 
     // --- 3. 3D Tilt Effect ---
     const cards = document.querySelectorAll('.project-card');
@@ -105,10 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 6. REAL Visit Counter (API) ---
     // Мы используем публичный API CountAPI для хранения числа просмотров.
     const counterElement = document.getElementById('visit-count');
-<<<<<<< HEAD
         if (counterElement) {
-=======
->>>>>>> 00b434b9d1778328c884d453175c76accc24c085
 
     // Пытаемся получить данные
     // Формат: https://api.countapi.xyz/hit/ВАШ_ДОМЕН/visits
@@ -133,10 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Ошибка счетчика:", err);
             counterElement.innerText = "Error";
         });
-<<<<<<< HEAD
         }
-=======
->>>>>>> 00b434b9d1778328c884d453175c76accc24c085
 });
 
 // --- 5. Improved Particle Background ---
@@ -208,11 +187,7 @@ function animate() {
 
 function connect() {
     for (let a = 0; a < particlesArray.length; a++) {
-<<<<<<< HEAD
         for (let b = a + 1; b < particlesArray.length; b++) {
-=======
-        for (let b = a; b < particlesArray.length; b++) {
->>>>>>> 00b434b9d1778328c884d453175c76accc24c085
             let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
                 ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
             if (distance < (canvas.width / 9) * (canvas.height / 9)) {
