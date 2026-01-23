@@ -702,10 +702,114 @@ class TerminalUI {
 //     console.log("Stochastic Kernel Simulator Loaded.");
 // });
 
+// Initialize Terminal
+// window.addEventListener('load', () => {
+//     window.terminal = new TerminalUI();
+//     console.log("Stochastic Kernel Simulator Loaded.");
+// });
+
 /* =========================================
-   STOCHASTIC DESKTOP ENVIRONMENT v2.0
-   (Window Manager, GUI, & App Ecosystem)
+   UNKNOWN KERNEL - PREMIUM REPOSITORY MANAGER v3.1
+   (Search, filtering, and download handling)
    ========================================= */
+
+class RepositoryManager {
+    constructor() {
+        this.projectsGrid = document.querySelector('.repo-grid');
+        this.searchInput = document.querySelector('.search-bar input');
+        this.filterBtns = document.querySelectorAll('.filter-btn');
+
+        if (this.projectsGrid) {
+            this.initRepository();
+        }
+    }
+
+    initRepository() {
+        // Initialize Filter Buttons
+        this.filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.filterProjects(btn.dataset.filter);
+            });
+        });
+
+        // Initialize Search
+        if (this.searchInput) {
+            this.searchInput.addEventListener('input', (e) => {
+                this.searchProjects(e.target.value.toLowerCase());
+            });
+        }
+
+        // Add Intersection Observer for fade-in animations
+        this.observeCards();
+    }
+
+    observeCards() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.repo-card').forEach((card, index) => {
+            // Set initial state for animation
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = `all 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    }
+
+    filterProjects(category) {
+        const cards = document.querySelectorAll('.repo-card');
+        cards.forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+                card.style.display = 'flex';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 50);
+            } else {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
+    searchProjects(query) {
+        const cards = document.querySelectorAll('.repo-card');
+        cards.forEach(card => {
+            const title = card.querySelector('.repo-title').textContent.toLowerCase();
+            const desc = card.querySelector('.repo-desc').textContent.toLowerCase();
+
+            if (title.includes(query) || desc.includes(query)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+}
+
+// Global Initialization
+window.addEventListener('load', () => {
+    // Initialize standard terminal (hidden Easter egg, not OS)
+    if (window.TerminalUI) window.terminal = new TerminalUI();
+
+    // Initialize Repository
+    window.repo = new RepositoryManager();
+
+    console.log("Stochastic Repository Loaded.");
+});
+
 
 // 1. Core Window Manager
 class WindowManager {
