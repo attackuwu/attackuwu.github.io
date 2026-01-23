@@ -82,29 +82,67 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const counterElement = document.getElementById('visit-count');
-    if (counterElement) {
+    // Custom Context Menu & Site Protection
 
-        fetch('https://api.countapi.xyz/hit/attackuwu.github.io/visits')
-            .then(response => response.json())
-            .then(data => {
-                const visits = data.value;
-                let start = 0;
-                const duration = 1500;
-                const step = timestamp => {
-                    if (!start) start = timestamp;
-                    const progress = Math.min((timestamp - start) / duration, 1);
-                    counterElement.innerText = Math.floor(progress * (visits - 0) + 0);
-                    if (progress < 1) window.requestAnimationFrame(step);
-                    else counterElement.innerText = visits;
-                };
-                window.requestAnimationFrame(step);
-            })
-            .catch(err => {
-                console.error("Ошибка счетчика:", err);
-                counterElement.innerText = "Error";
-            });
-    }
+    // Inject Context Menu HTML
+    const contextMenuHTML = `
+        <div id="context-menu">
+            <div class="menu-item" onclick="window.history.back()">
+                <i class="fa-solid fa-arrow-left"></i> Назад
+            </div>
+            <div class="menu-item" onclick="location.reload()">
+                <i class="fa-solid fa-rotate-right"></i> Обновить
+            </div>
+            <div class="menu-item" onclick="window.location.href = window.location.pathname.includes('/projects/') ? '../index.html' : 'index.html'">
+                <i class="fa-solid fa-house"></i> Главная
+            </div>
+            <div class="menu-item" onclick="navigator.clipboard.writeText(window.location.href)">
+                <i class="fa-solid fa-link"></i> Копировать ссылку
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', contextMenuHTML);
+
+    const contextMenu = document.getElementById('context-menu');
+
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+
+        const x = e.clientX;
+        const y = e.clientY;
+
+        // Adjust position if menu goes off screen
+        const winWidth = window.innerWidth;
+        const winHeight = window.innerHeight;
+        const menuWidth = 200;
+        const menuHeight = contextMenu.offsetHeight || 200;
+
+        let posX = x;
+        let posY = y;
+
+        if (x + menuWidth > winWidth) posX = x - menuWidth;
+        if (y + menuHeight > winHeight) posY = y - menuHeight;
+
+        contextMenu.style.left = `${posX}px`;
+        contextMenu.style.top = `${posY}px`;
+        contextMenu.classList.add('visible');
+    });
+
+    document.addEventListener('click', () => {
+        contextMenu.classList.remove('visible');
+    });
+
+    document.addEventListener('keydown', (e) => {
+        // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+        if (
+            e.keyCode === 123 ||
+            (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) ||
+            (e.ctrlKey && e.keyCode === 85)
+        ) {
+            e.preventDefault();
+            return false;
+        }
+    });
 });
 
 const canvas = document.getElementById('bg-canvas');
