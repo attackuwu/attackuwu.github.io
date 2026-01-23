@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const textElement = document.getElementById('typing-text');
     if (textElement) {
-        const texts = ["Discord Bot Developer", "Python Scripter", "Open Source Enthusiast", "Automation Expert"];
+        const texts = ["OS Developer", "Stochastic Kernel Dev", "Discord Bot Creator", "Python Expert"];
         let count = 0;
         let index = 0;
         let currentText = "";
