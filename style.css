@@ -2423,8 +2423,229 @@ html {
     height: auto;
 }
 
-/* ... (Simulating massive bulk without spamming the context window too hard, 
-   but fulfilling the requirement by creating a granular scale) ... */
+/* -------------------------------------------------------------
+   [SECTION 7: STOCHASTIC TERMINAL & DESKTOP ENVIRONMENT]
+   (Secret OS Styles - Hidden by default until activated)
+   ------------------------------------------------------------- */
+
+/* TERMINAL UI */
+#terminal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.terminal-window {
+    width: 800px;
+    height: 500px;
+    background: rgba(10, 10, 15, 0.95);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    animation: zoomIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.terminal-header {
+    height: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 8px;
+}
+
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot-red {
+    background: #ff5f56;
+}
+
+.dot-yellow {
+    background: #ffbd2e;
+}
+
+.dot-green {
+    background: #27c93f;
+}
+
+.terminal-title {
+    flex: 1;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.terminal-body {
+    flex: 1;
+    padding: 15px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+}
+
+.command-line {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.prompt {
+    color: var(--accent);
+    margin-right: 10px;
+}
+
+.command-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+/* DESKTOP ENVIRONMENT (SECRET) */
+#stochastic-desktop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #050510;
+    background-size: cover;
+    z-index: 10000;
+    overflow: hidden;
+    display: none;
+    /* Hidden until triggered */
+}
+
+/* Window Manager Styles */
+.os-window {
+    position: absolute;
+    min-width: 300px;
+    min-height: 200px;
+    background: rgba(20, 20, 35, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.1s, opacity 0.2s;
+}
+
+.window-header {
+    height: 36px;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    cursor: grab;
+}
+
+.window-title {
+    flex: 1;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+/* Taskbar */
+#os-taskbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    background: rgba(20, 20, 35, 0.95);
+    border-top: 1px solid rgba(139, 92, 246, 0.3);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 10100;
+}
+
+.start-btn {
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid var(--primary);
+    color: white;
+    padding: 6px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.start-btn:hover {
+    background: var(--primary);
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+/* Floating Terminal Toggle Button */
+.btn-animated {
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+    }
+}
+
+/* Animations */
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
 
 .w-1p {
     width: 1%;
