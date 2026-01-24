@@ -145,93 +145,158 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/* =========================================
+   UNKNOWN KERNEL - PHYSICS ENGINE v4.0 (GRAVITY, COLLISION, FLUIDS)
+   ========================================= */
+
 const canvas = document.getElementById('bg-canvas');
 if (canvas) {
     const ctx = canvas.getContext('2d');
-    let particlesArray;
+    let width, height;
+    let particles = [];
+    let forces = [];
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Engine Configuration
+    const CONFIG = {
+        particleCount: 150,
+        connectionDistance: 120,
+        mouseRepelRadius: 150,
+        mouseRepelForce: 2,
+        friction: 0.96,
+        gravity: 0.05,
+        baseSpeed: 0.5
+    };
 
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        init();
-    });
+    // Resize Handler
+    const resize = () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', resize);
+    resize();
 
-    class Particle {
-        constructor(x, y, directionX, directionY, size, color) {
-            this.x = x;
-            this.y = y;
-            this.directionX = directionX;
-            this.directionY = directionY;
-            this.size = size;
-            this.color = color;
+    // Vector Class for Physics Calculations
+    class Vector2 {
+        constructor(x, y) { this.x = x; this.y = y; }
+        add(v) { this.x += v.x; this.y += v.y; return this; }
+        sub(v) { this.x -= v.x; this.y -= v.y; return this; }
+        mult(n) { this.x *= n; this.y *= n; return this; }
+        div(n) { this.x /= n; this.y /= n; return this; }
+        mag() { return Math.sqrt(this.x * this.x + this.y * this.y); }
+        normalize() {
+            const m = this.mag();
+            if (m !== 0) this.div(m);
+            return this;
         }
+        limit(max) {
+            if (this.mag() > max) {
+                this.normalize().mult(max);
+            }
+            return this;
+        }
+    }
+
+    // Advanced Physics Particle
+    class PhysicsParticle {
+        constructor() {
+            this.pos = new Vector2(Math.random() * width, Math.random() * height);
+            this.vel = new Vector2((Math.random() - 0.5) * CONFIG.baseSpeed, (Math.random() - 0.5) * CONFIG.baseSpeed);
+            this.acc = new Vector2(0, 0);
+            this.size = Math.random() * 2 + 1;
+            this.color = `rgba(${139 + Math.random() * 50}, ${92 + Math.random() * 50}, 246, ${Math.random() * 0.5 + 0.2})`;
+            this.mass = this.size * 1.5;
+        }
+
+        applyForce(force) {
+            let f = new Vector2(force.x, force.y);
+            f.div(this.mass);
+            this.acc.add(f);
+        }
+
+        update(mousePos) {
+            // physics physics physics
+            this.vel.add(this.acc);
+            this.vel.mult(CONFIG.friction); // Air resistance
+            this.pos.add(this.vel);
+            this.acc.mult(0); // Reset acceleration
+
+            // Mouse Repulsion
+            if (mousePos) {
+                let mouseV = new Vector2(mousePos.x, mousePos.y);
+                let dir = new Vector2(this.pos.x, this.pos.y).sub(mouseV);
+                let d = dir.mag();
+                if (d < CONFIG.mouseRepelRadius) {
+                    dir.normalize();
+                    let force = (CONFIG.mouseRepelRadius - d) / CONFIG.mouseRepelRadius;
+                    dir.mult(force * CONFIG.mouseRepelForce);
+                    this.applyForce(dir);
+                }
+            }
+
+            // Boundary Wrap
+            if (this.pos.x < 0) this.pos.x = width;
+            if (this.pos.x > width) this.pos.x = 0;
+            if (this.pos.y < 0) this.pos.y = height;
+            if (this.pos.y > height) this.pos.y = 0;
+        }
+
         draw() {
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+            ctx.arc(this.pos.x, this.pos.y, this.size, 0, Math.PI * 2);
             ctx.fillStyle = this.color;
             ctx.fill();
         }
-        update() {
-            if (this.x > canvas.width || this.x < 0) {
-                this.directionX = -this.directionX;
-            }
-            if (this.y > canvas.height || this.y < 0) {
-                this.directionY = -this.directionY;
-            }
-            this.x += this.directionX;
-            this.y += this.directionY;
-            this.draw();
-        }
     }
 
-    function init() {
-        particlesArray = [];
-        let numberOfParticles = (canvas.height * canvas.width) / 9000;
-        for (let i = 0; i < numberOfParticles; i++) {
-            let size = (Math.random() * 2) + 1;
-            let x = Math.random() * (innerWidth - size * 2);
-            let y = Math.random() * (innerHeight - size * 2);
-            let directionX = (Math.random() * 2) - 1;
-            let directionY = (Math.random() * 2) - 1;
-            let color = '#8b5cf6';
-
-            particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-        }
+    // Initialize System
+    for (let i = 0; i < CONFIG.particleCount; i++) {
+        particles.push(new PhysicsParticle());
     }
 
-    function animate() {
-        requestAnimationFrame(animate);
-        ctx.clearRect(0, 0, innerWidth, innerHeight);
+    // Mouse Tracking
+    let mouse = new Vector2(0, 0);
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
 
-        for (let i = 0; i < particlesArray.length; i++) {
-            particlesArray[i].update();
-        }
-        connect();
-    }
+    // Animation Loop
+    let lastTime = 0;
+    const animate = (timestamp) => {
+        const deltaTime = timestamp - lastTime;
+        lastTime = timestamp;
 
-    function connect() {
-        for (let a = 0; a < particlesArray.length; a++) {
-            for (let b = a + 1; b < particlesArray.length; b++) {
-                let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
-                    ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                if (distance < (canvas.width / 9) * (canvas.height / 9)) {
-                    ctx.strokeStyle = 'rgba(139, 92, 246, 0.15)';
-                    ctx.lineWidth = 1;
+        ctx.clearRect(0, 0, width, height);
+
+        // Update and Draw Particles
+        particles.forEach(p => {
+            p.update(mouse);
+            p.draw();
+        });
+
+        // Connection Lines
+        ctx.strokeStyle = 'rgba(139, 92, 246, 0.15)';
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                let d = Math.sqrt(
+                    Math.pow(particles[i].pos.x - particles[j].pos.x, 2) +
+                    Math.pow(particles[i].pos.y - particles[j].pos.y, 2)
+                );
+                if (d < CONFIG.connectionDistance) {
                     ctx.beginPath();
-                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                    ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                    ctx.moveTo(particles[i].pos.x, particles[i].pos.y);
+                    ctx.lineTo(particles[j].pos.x, particles[j].pos.y);
                     ctx.stroke();
                 }
             }
         }
-    }
 
-    init();
-    animate();
+        requestAnimationFrame(animate);
+    };
+    animate(0);
 }
+
 
 /* =========================================
    UNKNOWN KERNEL - PREMIUM REPOSITORY MANAGER v3.1
@@ -685,6 +750,38 @@ const Applications = {
         }
     }
 };
+
+// 2.5 Terminal Subsystem
+class TerminalUI {
+    constructor() {
+        this.history = [];
+        this.commands = {
+            'help': () => 'Available commands: help, date, whoami, clear, reboot',
+            'date': () => new Date().toString(),
+            'whoami': () => 'guest@stochastic',
+            'clear': () => {
+                // In a real terminal this would clear visual output
+                return 'Console cleared';
+            },
+            'reboot': () => {
+                location.reload();
+                return 'Rebooting...';
+            }
+        };
+        console.log("Terminal subsystem initialized.");
+    }
+
+    execute(cmd) {
+        if (!cmd) return '';
+        const args = cmd.split(' ');
+        const main = args[0].toLowerCase();
+
+        if (this.commands[main]) {
+            return this.commands[main](args.slice(1));
+        }
+        return `Command not found: ${main}`;
+    }
+}
 
 // 3. Desktop Controller
 class DesktopEnvironment {
