@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои Проекты | AttackUwU</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="logo">&lt;AttackUwU /&gt;</div>
+        <div class="nav-links">
+            <a href="../index.html">Главная</a>
+            <a href="#" class="active">Проекты</a>
+            <a href="../index.html#contact">Контакты</a>
+        </div>
+    </nav>
+
+    <section class="projects-section" style="padding-top: 150px;">
+        <div class="repo-controls">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Поиск проектов...">
+            </div>
+            <button class="filter-btn active" data-filter="all">Все</button>
+            <button class="filter-btn" data-filter="python">Python</button>
+            <button class="filter-btn" data-filter="web">Web</button>
+            <button class="filter-btn" data-filter="cpp">C++</button>
+        </div>
+
+        <div class="repo-grid">
+            <!-- Project 1: Discord Bot -->
+            <div class="repo-card" data-category="python">
+                <div class="repo-header">
+                    <div class="repo-icon"><i class="fa-brands fa-discord"></i></div>
+                    <span class="repo-version">v2.4.1</span>
+                </div>
+                <h3 class="repo-title">Discord Base Bot</h3>
+                <p class="repo-desc">Мощный шаблон для создания Discord ботов. Включает систему когов, базу данных и
+                    модерацию.</p>
+                <div class="repo-stats">
+                    <div class="stat-item"><i class="fa-solid fa-download"></i> 1.2k</div>
+                    <div class="stat-item"><i class="fa-solid fa-star"></i> 45</div>
+                </div>
+                <div class="repo-actions">
+                    <a href="https://github.com/attackuwu/discordbasebot/archive/refs/heads/main.zip"
+                        class="btn-download"><i class="fa-solid fa-download"></i> Скачать</a>
+                    <a href="https://github.com/attackuwu/discordbasebot" target="_blank" class="btn-source"><i
+                            class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+
+            <!-- Project 2: Telegram Shop -->
+            <div class="repo-card" data-category="python">
+                <div class="repo-header">
+                    <div class="repo-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                    <span class="repo-version">v1.1.0</span>
+                </div>
+                <h3 class="repo-title">Telegram Shop Bot</h3>
+                <p class="repo-desc">Готовый магазин для Telegram с админ-панелью, платежами (Qiwi/Crypto) и
+                    статистикой.</p>
+                <div class="repo-stats">
+                    <div class="stat-item"><i class="fa-solid fa-download"></i> 856</div>
+                    <div class="stat-item"><i class="fa-solid fa-star"></i> 32</div>
+                </div>
+                <div class="repo-actions">
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Скачать</a>
+                    <a href="#" class="btn-source"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+
+            <!-- Project 3: OS Kernel -->
+            <div class="repo-card" data-category="cpp">
+                <div class="repo-header">
+                    <div class="repo-icon"><i class="fa-solid fa-microchip"></i></div>
+                    <span class="repo-version">v0.9-alpha</span>
+                </div>
+                <h3 class="repo-title">Stochastic Kernel</h3>
+                <p class="repo-desc">Экспериментальное микроядро OS на C++. Поддержка мультизадачности и виртуальной
+                    памяти.</p>
+                <div class="repo-stats">
+                    <div class="stat-item"><i class="fa-solid fa-download"></i> 230</div>
+                    <div class="stat-item"><i class="fa-solid fa-star"></i> 89</div>
+                </div>
+                <div class="repo-actions">
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Скачать</a>
+                    <a href="#" class="btn-source"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+
+            <!-- Project 4: Web Portfolio Template -->
+            <div class="repo-card" data-category="web">
+                <div class="repo-header">
+                    <div class="repo-icon"><i class="fa-solid fa-globe"></i></div>
+                    <span class="repo-version">v3.0</span>
+                </div>
+                <h3 class="repo-title">Neon Portfolio</h3>
+                <p class="repo-desc">Исходный код этого сайта. Адаптивный дизайн, CSS анимации и премиум стиль.</p>
+                <div class="repo-stats">
+                    <div class="stat-item"><i class="fa-solid fa-download"></i> 3.5k</div>
+                    <div class="stat-item"><i class="fa-solid fa-star"></i> 156</div>
+                </div>
+                <div class="repo-actions">
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Скачать</a>
+                    <a href="#" class="btn-source"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+
+            <!-- Project 5: Python Parser -->
+            <div class="repo-card" data-category="python">
+                <div class="repo-header">
+                    <div class="repo-icon"><i class="fa-solid fa-spider"></i></div>
+                    <span class="repo-version">v1.5</span>
+                </div>
+                <h3 class="repo-title">Universal Parser</h3>
+                <p class="repo-desc">Асинхронный парсер сайтов (Scrapy/BeautifulSoup) с экспортом в JSON/CSV.</p>
+                <div class="repo-stats">
+                    <div class="stat-item"><i class="fa-solid fa-download"></i> 412</div>
+                    <div class="stat-item"><i class="fa-solid fa-star"></i> 28</div>
+                </div>
+                <div class="repo-actions">
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Скачать</a>
+                    <a href="#" class="btn-source"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+
+            <!-- Project 6: C++ Game Engine -->
+            <div class="repo-card" data-category="cpp">
+                <div class="repo-header">
+                    <div class="repo-icon"><i class="fa-solid fa-gamepad"></i></div>
+                    <span class="repo-version">v0.1</span>
+                </div>
+                <h3 class="repo-title">Void Engine</h3>
+                <p class="repo-desc">2D игровой движок на C++ и SDL2. Демонстрация физики и рендеринга.</p>
+                <div class="repo-stats">
+                    <div class="stat-item"><i class="fa-solid fa-download"></i> 156</div>
+                    <div class="stat-item"><i class="fa-solid fa-star"></i> 41</div>
+                </div>
+                <div class="repo-actions">
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Скачать</a>
+                    <a href="#" class="btn-source"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>
