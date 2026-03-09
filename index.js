@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const textElement = document.getElementById('typewriter');
-    const textToType = "Привет, я разработчик и Red Team Operator";
+    const textToType = "Привет, я разработчик Pynux";
     const typingSpeed = 70; // Скорость печати в миллисекундах
     const cursor = "█";
     let charIndex = 0;
